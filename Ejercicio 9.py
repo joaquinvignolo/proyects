@@ -9,11 +9,13 @@ def calcular_factorial(n):
     return factorial
 
 try: #Utilizo try por si se ingresa un valor que no sea un numero te salte un error
+    
     numero = int(input("Ingresa un número entero para calcular su factorial: "))
+    
     if numero < 0:
-        print("El factorial no está definido para números negativos.")
+        print("Ingrese un numero positivo.")
     else:
         resultado = calcular_factorial(numero)
-        print("El factorial de", numero, "es:", resultado)
+        print(f"El factorial de {numero} es: {resultado}")
 except ValueError:
-    print("Debes ingresar un número entero válido.")
+    print("Debes ingresar un número entero.")

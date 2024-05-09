@@ -9,10 +9,11 @@ def adivina_adivinador():
     numero = random.randint(1,100) #Genera un random entre el 1 y el 100
     
     print("Hola, ¡Vamos a jugar un juego! Consiste en lo siguiente:")
-    print("Tengo un número entre el 1 y el 100 en la mente")
+    print("Tengo un número entre el 1 y el 100 en la mente.")
     print("Te toca adivinar cuál es. Te ire dando pistas. Tienes intentos infinitos no te preocupes.\n")
 
     while True: #Se repite el ciclo hasta que se cumpla la condición
+        
         numero_usuario = int(input("Ingrese el número: "))
         
         if numero_usuario < numero:
