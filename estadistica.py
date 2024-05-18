@@ -1,3 +1,6 @@
+#Mostrar las frecuencias, la cantidad que se repite un dato en la moda y explicar las librerias.
+#Aclarar si la desviación es muestral o poblacional (n o n-1)
+
 import statistics
 
 def calcular_media(lista):
@@ -28,7 +31,7 @@ def menu():
         print("1. Visualizar la MEDIA.")
         print("2. Visualizar la MODA.")
         print("3. Visualizar la MEDIANA.")
-        print("4. Visualizar la DESVIACIÓN ESTANDAR.")
+        print("4. Visualizar la DESVIACIÓN ESTÁNDAR.")
         print("5. Visualizar la VARIANZA.\n")
         
         opcion = int(input("Ingrese el número de la opción que desea visualizar: "))
