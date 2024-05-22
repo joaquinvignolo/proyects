@@ -1,23 +1,25 @@
-#Mostrar las frecuencias, la cantidad que se repite un dato en la moda y explicar las librerias.
-#Aclarar si la desviación es muestral o poblacional (n o n-1)
+#Mostrar las frecuencias.
 
 import statistics
+from collections import Counter
 
 def calcular_media(lista):
-    return statistics.mean(lista)
+    return statistics.mean(lista) #Calcula la suma de todos los elementos dividida por el número total de elementos.
 
 def calcular_moda(lista):
-    return statistics.mode(lista)
+    moda = statistics.mode(lista) #Calcula la moda buscando el valor que de la lista mas se repite
+    frecuencia = lista.count(moda) #Cuenta cuantas veces aparece el dato de la moda
+    return moda, frecuencia
 
 def calcular_mediana(lista):
-    return statistics.median(lista)
+    return statistics.median(lista) #Calcula el valor que se encuentra en la posición central de la lista cuando los datos están ordenados en orden ascendente
 
 def calcular_desviacion(lista):
-    desviacion_estandar = statistics.stdev(lista)
+    desviacion_estandar = statistics.stdev(lista) # n - 1, Calcula la medida de dispersión que indica cuánto se alejan los valores de la media
     return desviacion_estandar
 
 def calcular_varianza(lista):
-    varianza = statistics.variance(lista)
+    varianza = statistics.variance(lista) #Calcula la media de los cuadrados de las desviaciones respecto a la media
     return varianza
 
 def menu():
@@ -66,7 +68,8 @@ def main():
         if opcion == 1:
             print(f"La media es: {calcular_media(numeros)}")
         elif opcion == 2:
-            print(f"La moda es: {calcular_moda(numeros)}")
+            moda, frecuencia = calcular_moda(numeros)
+            print(f"La moda es: {moda} y se repite {frecuencia} veces.")
         elif opcion == 3:
             print(f"La mediana es: {calcular_mediana(numeros)}")
         elif opcion == 4:
@@ -80,3 +83,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
