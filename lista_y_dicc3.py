@@ -3,15 +3,15 @@
 
 def diccionario_listas(dicc):
     lista_epica = []
-    for lista in dicc.values():
-        lista_epica.extend(lista)
+    for clave in dicc:  #itero sobre las claves del diccionario
+        lista_epica.extend(dicc[clave])  #extiendo con los valores asociados a cada clave
     return lista_epica
 
 diccionario = {
     "a": ["carne", "pollo"],
     "b": ["salsa", "queso"],
     "c": ["picante"]
-    }
+}
 
 lista_final = diccionario_listas(diccionario)
 print(f"La lista extendida es {lista_final}")
