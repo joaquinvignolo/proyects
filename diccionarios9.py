@@ -11,6 +11,6 @@ diccionario = {
     "c": 3
 }
 print(f"{diccionario}")
-tuplas = [("a", 10), ("b", 20), ("c", 30)]
+tuplas = [("a", 10), ("b", 20), ("d", 30)]
 actualizar_diccionario(diccionario, tuplas)
 print(f"{diccionario}")

@@ -11,7 +11,6 @@ def agrupar_longitud(lista):
         nuevo_diccionario[longitud].append(palabra)
     return nuevo_diccionario
 
-# Ejemplo de uso:
-palabras = ["milanesa", "napolitana", "cebolla", "feliz"]
+palabras = ["mantel", "pincel", "agua", "rata"]
 resultado = agrupar_longitud(palabras)
 print(resultado)
