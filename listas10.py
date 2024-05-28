@@ -7,7 +7,7 @@ def primera_aparacion(lista, n):
     if n not in lista:
         return -1
 
-valor_n = 40
+valor_n = 20
 numeros = [10, 20, 30, 20]
 aparacion = primera_aparacion(numeros, valor_n)
 print(f"El índice de {valor_n} es {aparacion}")

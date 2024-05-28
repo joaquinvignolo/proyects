@@ -5,7 +5,7 @@ def contar_letras(cadena):
     contador_de_letras = {} #creo el diccionario
     for letra in cadena:
         if letra in contador_de_letras: 
-            contador_de_letras[letra] += 1  #si la letra ya esta en el contador aumenta su valr
+            contador_de_letras[letra] += 1  #si la letra ya esta en el contador aumenta su valor
         else:
             contador_de_letras[letra] = 1 #si no esta se agrega como primera vez
     return contador_de_letras
