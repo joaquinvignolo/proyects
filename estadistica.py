@@ -45,13 +45,13 @@ def frecuencia_absoluta(lista):
 def frecuencia_relativa(lista):
     total = len(lista)
     frec_abs = frecuencia_absoluta(lista)
-    frec_relativa = {key: round(value / total, 4) for key, value in frec_abs.items()}
+    frec_relativa = {clave: round(valor / total, 4) for clave, valor in frec_abs.items()}
     return frec_relativa
 
 # Calcula la frecuencia porcentual de cada elemento en una lista de números.
 def frecuencia_porcentual(lista):
     frec_rel = frecuencia_relativa(lista)
-    frec_porcentual = {key: round(value * 100, 4) for key, value in frec_rel.items()}
+    frec_porcentual = {clave: round(valor * 100, 4) for clave, valor in frec_rel.items()}
     return frec_porcentual
 
 # Calcula la frecuencia absoluta acumulada de una lista de números.
@@ -59,9 +59,9 @@ def frecuencia_absoluta_acumulada(lista):
     frec_abs = frecuencia_absoluta(lista)
     acumulado = 0
     frec_abs_acum = {}
-    for key, value in sorted(frec_abs.items()):
-        acumulado += value
-        frec_abs_acum[key] = acumulado
+    for clave, valor in sorted(frec_abs.items()):
+        acumulado += valor
+        frec_abs_acum[clave] = acumulado
     return frec_abs_acum
 
 # Calcula la frecuencia relativa acumulada de una lista de números.
@@ -70,9 +70,9 @@ def frecuencia_relativa_acumulada(lista):
     frec_rel = frecuencia_relativa(lista)
     acumulado = 0
     frec_rel_acum = {}
-    for key, value in sorted(frec_rel.items()):
-        acumulado += value
-        frec_rel_acum[key] = round(acumulado, 4)
+    for clave, valor in sorted(frec_rel.items()):
+        acumulado += valor
+        frec_rel_acum[clave] = round(acumulado, 4)
     return frec_rel_acum
 
 # Calcula la frecuencia porcentual acumulada de una lista de números.
@@ -80,9 +80,9 @@ def frecuencia_porcentual_acumulada(lista):
     frec_porcent = frecuencia_porcentual(lista)
     acumulado = 0
     frec_porcent_acum = {}
-    for key, value in sorted(frec_porcent.items()):
-        acumulado += value
-        frec_porcent_acum[key] = f"{round(acumulado, 4)}%"
+    for clave, valor in sorted(frec_porcent.items()):
+        acumulado += valor
+        frec_porcent_acum[clave] = f"{round(acumulado, 4)}%"
     return frec_porcent_acum
 
 # Muestra un menú de opciones para el usuario.
@@ -150,7 +150,7 @@ def main():
         elif opcion == 7:
             print(tabulate([["FRECUENCIA RELATIVA", frecuencia_relativa(numeros)]], headers=["Operación", "Resultado"], tablefmt="grid"))
         elif opcion == 8:
-            print(tabulate([["FRECUENCIA PORCENTUAL", frecuencia_porcentual(numeros)]], headers=["Operación", "Resultado"], tablefmt="grid"))
+            print(tabulate([["FRECUENCIA PORCENTUAL", frecuencia_porcentual(numeros)]], headers=["Operación", "Resultado en porcentajes (%)"], tablefmt="grid"))
         elif opcion == 9:
             print(tabulate([["FRECUENCIA ABSOLUTA ACUMULADA", frecuencia_absoluta_acumulada(numeros)]], headers=["Operación", "Resultado"], tablefmt="grid"))
         elif opcion == 10:
