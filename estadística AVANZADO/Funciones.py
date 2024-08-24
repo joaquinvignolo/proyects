@@ -1,5 +1,8 @@
 import math
-from scipy.stats import binom, poisson
+from math import comb, pow, exp, factorial, sqrt, pi
+import scipy.integrate as integrate
+from scipy import stats
+from scipy.stats import hypergeom
 
 # MEDIDAS DE POSICIÓN
 
@@ -43,14 +46,15 @@ def CALCULAR_PROMEDIO(lista):
     return sum(lista) / len(lista)
 
 def CALCULAR_CUARTILES(lista):
-    longitudLista = len(lista)
-    mediana = CALCULAR_MEDIANA(lista)
+    listaOrdenada = sorted(lista)
+    longitudLista = len(listaOrdenada)
+    mediana = CALCULAR_MEDIANA(listaOrdenada)
     if longitudLista % 2 == 0:
-        mitad_inferior = lista[:longitudLista // 2]
-        mitad_superior = lista[longitudLista // 2:]
+        mitad_inferior = listaOrdenada[:longitudLista // 2]
+        mitad_superior = listaOrdenada[longitudLista // 2:]
     else:
-        mitad_inferior = lista[:longitudLista // 2]
-        mitad_superior = lista[longitudLista // 2 + 1:]
+        mitad_inferior = listaOrdenada[:longitudLista // 2]
+        mitad_superior = listaOrdenada[longitudLista // 2 + 1:]
 
     q1 = CALCULAR_MEDIANA(mitad_inferior)
     q2 = mediana
@@ -128,7 +132,6 @@ def CALCULAR_FREC_PORCENTUAL_ACUMULADA(lista):
 # INTERVALOS
 
 def CALCULAR_AMPLITUD_INTERVALOS(datos):
-    from math import sqrt
     minimo = min(datos)
     maximo = max(datos)
     numero_intervalos = sqrt(len(datos))
@@ -136,7 +139,6 @@ def CALCULAR_AMPLITUD_INTERVALOS(datos):
     return round(amplitud, 4)
 
 def CALCULAR_INTERVALOS_CLASE(datos):
-    from math import sqrt
     cantidad_datos = len(datos)
     numero_intervalos = sqrt(cantidad_datos)
     amplitud = CALCULAR_AMPLITUD_INTERVALOS(datos)
@@ -164,38 +166,6 @@ def CALCULAR_CURTOSIS(lista):
     
     kurtosis = (suma_cuarta / (n * (desviacion ** 4))) - 3
     return round(kurtosis, 4)
-
-# DISTRIBUCIÓN BINOMIAL
-
-def DISTRIBUCION_BINOMIAL(n, p, k, tipo):
-    if tipo == 'exacto':
-        return round(binom.pmf(k, n, p), 4)
-    elif tipo == 'menor':
-        return round(binom.cdf(k - 1, n, p), 4)
-    elif tipo == 'menor_o_igual':
-        return round(binom.cdf(k, n, p), 4)
-    elif tipo == 'mayor':
-        return round(1 - binom.cdf(k, n, p), 4)
-    elif tipo == 'mayor_o_igual':
-        return round(1 - binom.cdf(k - 1, n, p), 4)
-    else:
-        return "Tipo de cálculo no válido"
-
-# DISTRIBUCIÓN POISSON
-
-def DISTRIBUCION_POISSON(mu, k, tipo):
-    if tipo == 'exacto':
-        return round(poisson.pmf(k, mu), 4)
-    elif tipo == 'menor':
-        return round(poisson.cdf(k - 1, mu), 4)
-    elif tipo == 'menor_o_igual':
-        return round(poisson.cdf(k, mu), 4)
-    elif tipo == 'mayor':
-        return round(1 - poisson.cdf(k, mu), 4)
-    elif tipo == 'mayor_o_igual':
-        return round(1 - poisson.cdf(k - 1, mu), 4)
-    else:
-        return "Tipo de cálculo no válido"
 
 # FUNCIONES DEL INPUT
 
@@ -263,14 +233,47 @@ def MEDIDAS_POSICION(lista):
 
 def MEDIDAS_DISPERCION(lista):
     while True:
-        comando = int(input("¿Qué desea conocer sobre la lista?\n 1 = RANGO.\n 2 = DESVIACIÓN ESTÁNDAR.\n ==> "))
+        comando = int(input("¿Qué desea conocer sobre la lista?\n 1 = DESVIACIÓN ESTÁNDAR.\n 2 = RANGO.\n ==> "))
         if comando == 1:
+            valor = "La > Desviación Estándar < de la lista es "
+            resultado = DESVIACION_ESTANDAR(lista)
+            break
+        elif comando == 2:
             valor = "El > Rango < de la lista es "
             resultado = RANGO(lista)
             break
+        else:
+            print("Comando incorrecto, intente de nuevo")
+    
+    print(lista)
+    print(f"{valor}: ", resultado)
+    
+def CALCULAR_FRECUENCIAS(lista):
+    while True:
+        comando = int(input("¿Qué desea conocer sobre la lista?\n 1 = FRECUENCIA ABSOLUTA.\n 2 = FRECUENCIA ABSOLUTA ACUMULADA.\n 3 = FRECUENCIA RELATIVA.\n 4 = FRECUENCIA RELATIVA ACUMULADA.\n 5 = FRECUENCIA PORCENTUAL.\n 6 = FRECUENCIA PORCENTUAL ACUMULADA.\n ==> "))
+        if comando == 1:
+            valor = "Las > Frecuencias Absolutas < de la lista son "
+            resultado = CALCULAR_FRECUENCIA_ABSOLUTA(lista)
+            break
         elif comando == 2:
-            valor = "La > Desviación Estándar < de la lista es "
-            resultado = DESVIACION_ESTANDAR(lista)
+            valor = "Las > Frecuencias Absolutas Acumuladas < de la lista son "
+            resultado = CALCULAR_FRECUENCIA_ABSOLUTA_ACUMULADA(lista)
+            break
+        elif comando == 3:
+            valor = "Las > Frecuencias Relativas < de la lista son "
+            resultado = CALCULAR_FRECUENCIA_RELATIVA(lista)
+            break
+        elif comando == 4:
+            valor = "Las > Frecuencias Relativas Acumuladas < de la lista son "
+            resultado = CALCULAR_FRECUENCIA_RELATIVA_ACUMULADA(lista)
+            break
+        elif comando == 5:
+            valor = "Las > Frecuencias Porcentuales < de la lista son "
+            resultado = CALCULAR_FRECUENCIA_PORCENTUAL(lista)
+            break
+        elif comando == 6:
+            valor = "Las > Frecuencias Porcentuales Acumuladas < de la lista son "
+            resultado = CALCULAR_FREC_PORCENTUAL_ACUMULADA(lista)
             break
         else:
             print("Comando incorrecto, intente de nuevo")
@@ -278,26 +281,15 @@ def MEDIDAS_DISPERCION(lista):
     print(lista)
     print(f"{valor}: ", resultado)
 
-def TABLAS_FRECUENCIAS(lista):
-    print("Frecuencia Absoluta: ", CALCULAR_FRECUENCIA_ABSOLUTA(lista))
-    print("Frecuencia Absoluta Acumulada: ", CALCULAR_FRECUENCIA_ABSOLUTA_ACUMULADA(lista))
-    print("Frecuencia Relativa: ", CALCULAR_FRECUENCIA_RELATIVA(lista))
-    print("Frecuencia Relativa Acumulada: ", CALCULAR_FRECUENCIA_RELATIVA_ACUMULADA(lista))
-    print("Frecuencia Porcentual: ", CALCULAR_FRECUENCIA_PORCENTUAL(lista))
-    print("Frecuencia Porcentual Acumulada: ", CALCULAR_FREC_PORCENTUAL_ACUMULADA(lista))
-    print("Intervalos de Clases: ", CALCULAR_INTERVALOS_CLASE(lista))
-
-def CALCULAR_PROBABILIDAD_BINOMIAL():
-    n = int(input("Ingrese el número de pruebas (n): "))
-    p = float(input("Ingrese la probabilidad de éxito en cada prueba (p): "))
-    k = int(input("Ingrese el número de éxitos deseados (k): "))
-    tipo = input("Ingrese el tipo de cálculo (exacto, menor, menor_o_igual, mayor, mayor_o_igual): ")
-    probabilidad = DISTRIBUCION_BINOMIAL(n, p, k, tipo)
-    print(f"La probabilidad de obtener exactamente {k} éxitos en {n} pruebas es: {probabilidad}")
-
-def CALCULAR_PROBABILIDAD_POISSON():
-    mu = float(input("Ingrese la tasa de ocurrencias (λ): "))
-    k = int(input("Ingrese el número de eventos (k): "))
-    tipo = input("Ingrese el tipo de cálculo (exacto, menor, menor_o_igual, mayor, mayor_o_igual): ")
-    probabilidad = DISTRIBUCION_POISSON(mu, k, tipo)
-    print(f"La probabilidad de observar exactamente {k} eventos es: {probabilidad}")
+def INTERVALOS_CLASE(lista):
+    while True:
+        comando = int(input("¿Qué desea conocer sobre la lista?\n 1 = INTERVALOS CLASE.\n ==> "))
+        if comando == 1:
+            valor = "Los > Intervalos de Clase < de la lista son "
+            resultado = CALCULAR_INTERVALOS_CLASE(lista)
+            break
+        else:
+            print("Comando incorrecto, intente de nuevo")
+    
+    print(lista)
+    print(f"{valor}: ", resultado)
