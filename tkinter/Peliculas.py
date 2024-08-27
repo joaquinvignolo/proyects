@@ -23,7 +23,7 @@ Etiq_2.grid(row=0, column=1, padx=20, pady=5, sticky="w")
 entry_peli = tk.Entry(root, font=("Arial", 12), width=23, state='normal')
 entry_peli.grid(row=1, column=0, padx=20, pady=5, sticky="w")
 
-boton_aniadir = tk.Button(root, text="Añadir", font=("Comic Sans", 13), width=23, height=1, command=aniadir_pelicula)
+boton_aniadir = tk.Button(root, text="Añadir", font=("Arial", 12), width=23, height=1, command=aniadir_pelicula)
 boton_aniadir.grid(row=2, column=0, padx=20, pady=15, sticky="w")
 
 listbox = tk.Listbox(root, selectmode=tk.SINGLE, width=30, height=10)
