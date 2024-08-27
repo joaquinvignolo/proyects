@@ -11,21 +11,20 @@ def incrementa_contador():
 def decrece_contador():
     global contador
     contador -= 1
-    entry.config(state='normal') #editable
+    entry.config(state='normal')
     entry.delete(0, tk.END)
     entry.insert(0, str(contador))
-    entry.config(state='readonly') #no editable
+    entry.config(state='readonly')
     
 def resetear():
     global contador
     contador = 0
-    entry.config(state='normal') #editable
+    entry.config(state='normal')
     entry.delete(0, tk.END)
     entry.insert(0, str(contador))
-    entry.config(state='readonly') #no editable
-
+    entry.config(state='readonly')
 root = tk.Tk()
-root.title("El famoso suma resta reset") #título
+root.title("Contador")
 
 contador = 0 #variable contador arranca en 0
 

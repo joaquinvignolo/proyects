@@ -9,7 +9,7 @@ def actualizar_contador():
     entry.config(state='readonly') #no editable
 
 root = tk.Tk()
-root.title("Descontador épico") #título
+root.title("ContDecreciente") #título
 
 contador = 88 #variable contador arranca en 88
 
