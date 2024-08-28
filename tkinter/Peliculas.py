@@ -10,6 +10,7 @@ def aniadir_pelicula():
         entry_peli.delete(0, tk.END)  #añade el texto y limpia la entrada
     else:
         tk.messagebox.showwarning("Error")
+        entry_peli.delete(0, tk.END)
 
 root = tk.Tk()
 root.title("Películas")
